@@ -1,0 +1,35 @@
+{
+  "name": "docker-image-name",
+  "version": "0.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "config": {
+    "image_name": "echo shynome/${npm_package_name}",
+    "image_version": "echo $(eval ${npm_package_config_image_name}):v${npm_package_version}",
+    "image_latest": "echo $(eval ${npm_package_config_image_name}):latest"
+  },
+  "scripts": {
+    "presshd": "npm run build",
+    "sshd": "sudo docker run --rm -ti --name ${npm_package_name} $(eval ${npm_package_config_image_version})",
+    "stop": "sudo docker stop ${npm_package_name}",
+    "build": "sudo docker build . -t $(eval ${npm_package_config_image_version})",
+    "pretest": "npm run build",
+    "test": "mocha test",
+    "prerelease": "npm run build",
+    "release": "sudo docker tag $(eval ${npm_package_config_image_version}) $(eval ${npm_package_config_image_latest})",
+    "postrelease": "./scritps/push",
+    "preversion": "npm run test",
+    "postversion": "npm run release"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/mocha": "^2.2.48",
+    "@types/node": "^9.4.7",
+    "@types/shelljs": "^0.7.8",
+    "mocha": "^5.0.4",
+    "shelljs": "^0.8.1"
+  }
+}
