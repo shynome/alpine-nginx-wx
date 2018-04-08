@@ -11,13 +11,13 @@
   },
   "scripts": {
     "presshd": "npm run build",
-    "sshd": "sudo docker run --rm -ti --name ${npm_package_name} $(eval ${npm_package_config_image_version})",
-    "stop": "sudo docker stop ${npm_package_name}",
-    "build": "sudo docker build . -t $(eval ${npm_package_config_image_version})",
+    "sshd": "docker run --rm -ti --name ${npm_package_name} $(eval ${npm_package_config_image_version})",
+    "stop": "docker stop ${npm_package_name}",
+    "build": "docker build . -t $(eval ${npm_package_config_image_version})",
     "pretest": "npm run build",
     "test": "mocha test",
     "prerelease": "npm run build",
-    "release": "sudo docker tag $(eval ${npm_package_config_image_version}) $(eval ${npm_package_config_image_latest})",
+    "release": "docker tag $(eval ${npm_package_config_image_version}) $(eval ${npm_package_config_image_latest})",
     "postrelease": "./scritps/push",
     "preversion": "npm run test",
     "postversion": "npm run release"
