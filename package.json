@@ -10,8 +10,8 @@
     "image_latest": "echo $(eval ${npm_package_config_image_name}):latest"
   },
   "scripts": {
-    "presshd": "npm run build",
-    "sshd": "docker run --rm -ti --name ${npm_package_name} $(eval ${npm_package_config_image_version})",
+    "presh": "npm run build",
+    "sh": "docker run --rm -ti --name ${npm_package_name} $(eval ${npm_package_config_image_version}) sh",
     "stop": "docker stop ${npm_package_name}",
     "build": "docker build . -t $(eval ${npm_package_config_image_version})",
     "pretest": "npm run build",
